@@ -1,0 +1,70 @@
+EXPERIMENT 1.1: Contains Duplicate (LC 217)
+
+Aim:
+To determine whether an integer array contains any duplicate element using sorting.
+
+Algorithm:
+1. Read the input array nums.
+2. Sort the array in ascending order.
+3. Traverse the sorted array from index 1 to the last element.
+4. Compare each element with its previous element.
+5. If two consecutive elements are equal, return true.
+6. If no duplicate is found after the traversal, return false.
+
+Code:
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        int nums_size = nums.size();
+
+        sort(nums.begin(), nums.end());
+
+        for (int i = 1; i < nums_size; i++) {
+            if (nums[i] == nums[i - 1]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+};
+
+
+------------------------------------------------------------
+
+EXPERIMENT 1.2: Contains Duplicate II (LC 219)
+
+Aim:
+To determine whether an integer array contains duplicate elements such that the difference between their indices is at most k using a hash map.
+
+Algorithm:
+1. Read the input array nums and integer k.
+2. Create an unordered_map to store each element and its latest index.
+3. Traverse the array from index 0 to the last element.
+4. If the current element is already present in the map:
+   a. Calculate the difference between the current index and the stored index.
+   b. If the difference is less than or equal to k, return true.
+5. Update the current element's latest index in the map.
+6. If no such duplicate is found, return false.
+
+Code:
+
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        unordered_map<int, int> mpp;
+        int n = nums.size();
+
+        for (int i = 0; i < n; i++) {
+            if (mpp.find(nums[i]) != mpp.end()) {
+                if (i - mpp[nums[i]] <= k) {
+                    return true;
+                }
+            }
+            mpp[nums[i]] = i;
+        }
+
+        return false;
+    }
+};
